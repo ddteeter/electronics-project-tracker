@@ -4,14 +4,7 @@ import "./App.css";
 import Projects from "./projects/Projects";
 import Inventory from "./inventory/Inventory";
 import CartBuilder from "./cart-builder/CartBuilder.js";
-import {
-  SignIn,
-  SignUp,
-  SignOut,
-  AuthService,
-  AuthContext,
-  UserContext
-} from "./auth";
+import { SignIn, SignOut, AuthService, AuthContext, UserContext } from "./auth";
 
 class App extends Component {
   componentWillMount() {
@@ -85,7 +78,6 @@ class App extends Component {
               <Inventory path="inventory/*" />
               <CartBuilder path="cart-builder/*" />
               <SignIn path="sign-in" />
-              <SignUp path="sign-up" />
             </Router>
           </div>
         </UserContext.Provider>
