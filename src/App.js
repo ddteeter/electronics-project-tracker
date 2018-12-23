@@ -40,7 +40,7 @@ class App extends Component {
   }
 
   navigateHome() {
-    navigate("/");
+    navigate("/projects");
   }
 
   navigateSignIn() {
@@ -68,18 +68,19 @@ class App extends Component {
       <AuthContext.Provider value={this.authService}>
         <UserContext.Provider value={this.currentUser}>
           <div className="App">
-            <nav>
-              <Link to="projects">Projects</Link>
-              <Link to="inventory">Inventory</Link>
-              <Link to="cart-builder">Cart Builder</Link>
-              <SignOut />
-            </nav>
+            {!!this.state.authUser ? (
+              <nav>
+                <Link to="projects">Projects</Link>
+                <Link to="inventory">Inventory</Link>
+                <Link to="cart-builder">Cart Builder</Link>
+                <SignOut />
+              </nav>
+            ) : null}
             <Router>
               <Projects
                 path="projects/*"
                 projects={this.state.projects}
                 onNewProject={this.onNewProject}
-                default
               />
               <Inventory path="inventory/*" />
               <CartBuilder path="cart-builder/*" />

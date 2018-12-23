@@ -17,24 +17,8 @@ class AuthService {
     this.auth = app.auth();
   }
 
-  createUserWithEmailAndPassword = (email, password) => {
-    return this.auth.createUserWithEmailAndPassword(email, password);
-  };
-
-  signInWithEmailAndPassword = (email, password) => {
-    return this.auth.signInWithEmailAndPassword(email, password);
-  };
-
   signOut = () => {
     return this.auth.signOut();
-  };
-
-  resetPassword = email => {
-    return this.auth.sendPasswordResetEmail(email);
-  };
-
-  updatePassword = password => {
-    return this.auth.currentUser.updatePassword(password);
   };
 }
 
