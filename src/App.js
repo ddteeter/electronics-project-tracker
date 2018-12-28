@@ -7,7 +7,9 @@ import CartBuilder from "./cart-builder/CartBuilder.js";
 import { SignIn, SignOut, AuthService, AuthContext, UserContext } from "./auth";
 
 class App extends Component {
-  componentWillMount() {
+  constructor(props) {
+    super(props);
+
     this.setState({
       projects: [],
       authUser: null
