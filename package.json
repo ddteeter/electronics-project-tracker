@@ -4,11 +4,17 @@
   "private": true,
   "dependencies": {
     "@reach/router": "^1.2.1",
+    "@types/jest": "^23.3.10",
+    "@types/node": "^10.12.18",
+    "@types/reach__router": "^1.2.2",
+    "@types/react": "^16.7.18",
+    "@types/react-dom": "^16.0.11",
     "firebase": "^5.7.1",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-firebaseui": "^3.1.2",
-    "react-scripts": "2.1.1"
+    "react-scripts": "2.1.1",
+    "typescript": "^3.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -23,10 +29,11 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "eslint-plugin-jsx-a11y": "^6.1.2",
-    "eslint-plugin-prettier": "^3.0.0",
     "husky": "^1.2.0",
     "prettier": "1.15.3",
-    "pretty-quick": "^1.8.0"
+    "pretty-quick": "^1.8.0",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "tslint-react-a11y": "^1.0.0"
   }
 }
