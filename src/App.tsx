@@ -1,19 +1,33 @@
+import { Link, navigate, Router } from "@reach/router";
+import { Unsubscribe } from "firebase";
 import React, { Component } from "react";
-import { Link, Router, navigate } from "@reach/router";
 import "./App.css";
-import Projects from "./projects/Projects";
+import { AuthContext, AuthService, SignIn, SignOut, UserContext } from "./auth";
+import CartBuilder from "./cart-builder/CartBuilder";
 import Inventory from "./inventory/Inventory";
-import CartBuilder from "./cart-builder/CartBuilder.js";
-import { SignIn, SignOut, AuthService, AuthContext, UserContext } from "./auth";
+import Project from "./projects/model/Project";
+import Projects from "./projects/Projects";
 
-class App extends Component {
-  componentWillMount() {
-    this.setState({
+type State = {
+  readonly projects: Project[];
+  readonly authUser?: firebase.User;
+};
+
+class App extends Component<{}, State> {
+  private authService: AuthService;
+  private authStateUnsubscribe?: Unsubscribe = undefined;
+
+  constructor(props: {}) {
+    super(props);
+
+    this.state = {
       projects: [],
-      authUser: null
-    });
+      authUser: undefined
+    };
 
     this.authService = new AuthService();
+    // TODO: Add loading indicator until initial onAuthStateChanged is fired for inital user
+    // state or a time period has elapsed (to prevent sign in flash).
     this.authService.auth.onAuthStateChanged(user => {
       if (!!user) {
         this.setState(
@@ -23,43 +37,36 @@ class App extends Component {
           this.navigateHome
         );
       } else {
-        this.setState({ authUser: null }, this.navigateSignIn);
+        this.setState({ authUser: undefined }, this.navigateToSignIn);
       }
     });
   }
 
   componentWillUnmount() {
-    this.authStateListener();
+    if (this.authStateUnsubscribe) {
+      this.authStateUnsubscribe();
+    }
   }
 
   navigateHome() {
     navigate("/projects");
   }
 
-  navigateSignIn() {
+  navigateToSignIn() {
     navigate("/sign-in");
   }
 
-  onNewProject = project => {
+  onNewProject = (project: Project) => {
     this.setState({
       ...this.state,
-      projects: [
-        ...this.state.projects,
-        {
-          ...project,
-          id:
-            this.state.projects.length === 0
-              ? 0
-              : Math.max(...this.state.projects.map(project => project.id)) + 1
-        }
-      ]
+      projects: [...this.state.projects, project]
     });
   };
 
   render() {
     return (
       <AuthContext.Provider value={this.authService}>
-        <UserContext.Provider value={this.currentUser}>
+        <UserContext.Provider value={this.state.authUser}>
           <div className="App">
             {!!this.state.authUser ? (
               <nav>

@@ -11,6 +11,8 @@ const firebaseConfig = {
 };
 
 class AuthService {
+  auth: firebase.auth.Auth;
+
   constructor() {
     app.initializeApp(firebaseConfig);
 

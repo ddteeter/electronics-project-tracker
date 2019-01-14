@@ -1,7 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import { Authenticated } from "../auth";
+import { RouteComponentProps } from "@reach/router";
 
-class CartBuilder extends Component {
+type Props = {} & RouteComponentProps;
+
+class CartBuilder extends React.Component<Props, {}> {
   render() {
     return (
       <Authenticated>

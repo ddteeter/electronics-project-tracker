@@ -1,8 +1,9 @@
-import React, { Component } from "react";
-import { navigate } from "@reach/router";
-import { withAuthService } from "./AuthContext";
+import React, { SFC } from "react";
+import { navigate, RouteComponentProps } from "@reach/router";
+import { withAuthService } from "./context/AuthContext";
 import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import { AuthService } from ".";
 
 const uiConfig = {
   signInFlow: "popup",
@@ -19,19 +20,18 @@ const uiConfig = {
   ]
 };
 
-class SignInBase extends Component {
-  render() {
-    return (
-      <div>
-        <h1>Sign In</h1>
-        <StyledFirebaseAuth
-          uiConfig={uiConfig}
-          firebaseAuth={this.props.authService.auth}
-        />
-      </div>
-    );
-  }
-}
+type Props = {
+  authService: AuthService;
+} & RouteComponentProps;
+
+const SignInBase: SFC<Props> = ({ authService }: Props) => {
+  return (
+    <div>
+      <h1>Sign In</h1>
+      <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={authService.auth} />
+    </div>
+  );
+};
 
 const SignIn = withAuthService(SignInBase);
 

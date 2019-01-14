@@ -1,6 +1,6 @@
-# Electronics Project Tracker
+# Guitar Pedal Project Tracker
 
-This project is designed to handle some basic housekeeping projects with electronics projects (in my case, guitar pedal). It seeks to solve the following problems:
+This project is designed to handle some basic housekeeping projects with guitar pedal projects. It seeks to solve the following problems:
 
 - Organize active and interesting projects.
 - Process build or BOM docs, storing the parsed BOM, templates, and instructions.
