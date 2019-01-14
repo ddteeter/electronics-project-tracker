@@ -20,12 +20,14 @@ class App extends Component<{}, State> {
   constructor(props: {}) {
     super(props);
 
-    this.setState({
+    this.state = {
       projects: [],
       authUser: undefined
-    });
+    };
 
     this.authService = new AuthService();
+    // TODO: Add loading indicator until initial onAuthStateChanged is fired for inital user
+    // state or a time period has elapsed (to prevent sign in flash).
     this.authService.auth.onAuthStateChanged(user => {
       if (!!user) {
         this.setState(
@@ -35,7 +37,7 @@ class App extends Component<{}, State> {
           this.navigateHome
         );
       } else {
-        this.setState({ authUser: undefined }, this.navigateSignIn);
+        this.setState({ authUser: undefined }, this.navigateToSignIn);
       }
     });
   }
@@ -50,7 +52,7 @@ class App extends Component<{}, State> {
     navigate("/projects");
   }
 
-  navigateSignIn() {
+  navigateToSignIn() {
     navigate("/sign-in");
   }
 

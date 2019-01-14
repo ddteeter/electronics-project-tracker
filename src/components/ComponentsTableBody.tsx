@@ -6,7 +6,7 @@ type Props = {
 };
 
 let ComponentsTableBody: SFC<Props> = ({ components }: Props) => {
-  return <div />;
+  return <tbody />;
 };
 
 export default ComponentsTableBody;

@@ -1,7 +1,7 @@
 import React, { SFC } from "react";
 
 let ComponentsTableHeader: SFC<{}> = ({}) => {
-  return <div />;
+  return <thead />;
 };
 
 export default ComponentsTableHeader;

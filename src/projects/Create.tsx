@@ -71,7 +71,7 @@ class CreateBase extends React.Component<Props, State> {
               name="name"
               required={true}
               maxLength={256}
-              size={256}
+              size={64}
               value={this.state.name}
               onChange={this.onChange}
             />

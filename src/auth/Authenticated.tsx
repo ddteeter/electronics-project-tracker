@@ -1,4 +1,4 @@
-import { SFC } from "react";
+import React, { SFC } from "react";
 import { Redirect } from "@reach/router";
 import { withAuthService } from "./context/AuthContext";
 import AuthService from "./service/AuthService";
@@ -9,7 +9,11 @@ type Props = {
 
 const AuthenticatedBase: SFC<Props> = ({ authService, children }) => (
   <div>
-    {authService.auth.currentUser ? children : <Redirect to="/sign-in" />}
+    {authService.auth.currentUser ? (
+      children
+    ) : (
+      <Redirect noThrow={true} to="/sign-in" />
+    )}
   </div>
 );
 

@@ -17,7 +17,7 @@ class InlineComponentEditor extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    this.setState(initialState);
+    this.state = initialState;
   }
 
   addComponent = (event: React.FormEvent<HTMLButtonElement>) => {
