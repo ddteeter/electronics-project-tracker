@@ -6,7 +6,7 @@ import { AuthContext, AuthService, SignIn, SignOut, UserContext } from "./auth";
 import CartBuilder from "./cart-builder/CartBuilder";
 import Inventory from "./inventory/Inventory";
 import Project from "./projects/model/Project";
-import Projects from "./projects/Projects";
+import ProjectRoutes from "./projects/Routes";
 
 type State = {
   readonly projects: Project[];
@@ -77,7 +77,7 @@ class App extends Component<{}, State> {
               </nav>
             ) : null}
             <Router>
-              <Projects
+              <ProjectRoutes
                 path="projects/*"
                 projects={this.state.projects}
                 onNewProject={this.onNewProject}

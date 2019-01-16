@@ -18,7 +18,7 @@ let initialState = {
 
 type State = Readonly<typeof initialState>;
 
-class ProjectViewBase extends React.Component<Props, State> {
+class ViewBase extends React.Component<Props, State> {
   private projectsService: ProjectsService;
 
   constructor(props: Props) {
@@ -44,6 +44,6 @@ class ProjectViewBase extends React.Component<Props, State> {
   }
 }
 
-const ProjectView = withUserContext(ProjectViewBase);
+const View = withUserContext(ViewBase);
 
-export default ProjectView;
+export default View;

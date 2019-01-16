@@ -6,7 +6,7 @@ type Props = {
   projects: Project[];
 };
 
-const ProjectList: SFC<Props> = ({ projects }) => (
+const List: SFC<Props> = ({ projects }) => (
   <ul>
     {projects.map(project => {
       return (
@@ -18,4 +18,4 @@ const ProjectList: SFC<Props> = ({ projects }) => (
   </ul>
 );
 
-export default ProjectList;
+export default List;

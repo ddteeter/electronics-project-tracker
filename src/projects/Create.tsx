@@ -14,7 +14,8 @@ type Props = {
 
 const initialState = {
   name: "",
-  bom: "manual",
+  buildDocEntry: "url",
+  bom: "parse",
   isFormValid: false
 };
 
@@ -22,12 +23,12 @@ type State = Readonly<typeof initialState>;
 
 class CreateBase extends React.Component<Props, State> {
   private projectsService: ProjectsService;
-  private buildDocsInput: React.RefObject<HTMLInputElement>;
+  private fileBuildDocsInput: React.RefObject<HTMLInputElement>;
 
   constructor(props: Props) {
     super(props);
     this.projectsService = new ProjectsService();
-    this.buildDocsInput = React.createRef();
+    this.fileBuildDocsInput = React.createRef();
   }
 
   componentWillMount() {
@@ -48,7 +49,9 @@ class CreateBase extends React.Component<Props, State> {
     let project = await this.projectsService.createProject(
       this.props.user,
       this.state,
-      this.buildDocsInput.current ? this.buildDocsInput.current.files : null
+      this.fileBuildDocsInput.current
+        ? this.fileBuildDocsInput.current.files
+        : null
     );
     this.props.onNewProject(project);
     navigate("/projects");
@@ -76,42 +79,74 @@ class CreateBase extends React.Component<Props, State> {
               onChange={this.onChange}
             />
           </label>
-          <label htmlFor="buildDocs">
-            Build Docs
-            <input
-              type="file"
-              name="file"
-              id="buildDocs"
-              multiple={true}
-              ref={this.buildDocsInput}
-            />
-          </label>
           <div>
-            <p>Components/BOM Entry Method</p>
-            <label htmlFor="manualBOM">
+            <p>Build Document Entry Method</p>
+            <label htmlFor="urlBuildDoc">
               <input
                 type="radio"
-                id="manualBOM"
-                name="bom"
-                value="manual"
+                id="urlBuildDoc"
+                name="buildDocEntry"
+                value="url"
+                checked={this.state.buildDocEntry === "url"}
                 onChange={this.onChange}
               />
-              Manual Entry
+              Pull from URL
             </label>
+            <label htmlFor="fileBuildDoc">
+              <input
+                type="radio"
+                id="fileBuildDoc"
+                name="buildDocEntry"
+                value="file"
+                checked={this.state.buildDocEntry === "file"}
+                onChange={this.onChange}
+              />
+              Upload File
+            </label>
+          </div>
+          {this.state.buildDocEntry === "url" ? (
+            <label htmlFor="urlBuildDocs">
+              Build Doc URL
+              <input type="url" name="urlBuildDocs" id="urlBuildDocs" />
+            </label>
+          ) : (
+            <label htmlFor="fileBuildDocs">
+              Build Doc Files
+              <input
+                type="file"
+                name="fileBuildDocs"
+                id="fileBuildDocs"
+                multiple={true}
+                ref={this.fileBuildDocsInput}
+              />
+            </label>
+          )}
+          <div>
+            <p>Components/BOM Entry Method</p>
             <label htmlFor="parseBOM">
               <input
                 type="radio"
                 id="parseBOM"
                 name="bom"
                 value="parse"
+                checked={this.state.bom === "parse"}
                 onChange={this.onChange}
               />
-              Parse Document <span className="info-tooltip">&nbsp;</span>
+              Parse Document
+            </label>
+            <label htmlFor="manualBOM">
+              <input
+                type="radio"
+                id="manualBOM"
+                name="bom"
+                value="manual"
+                checked={this.state.bom === "manual"}
+                onChange={this.onChange}
+              />
+              Manual Entry
             </label>
           </div>
-          {this.state.bom === "parse" ? (
-            ""
-          ) : (
+          {this.state.bom === "parse" ? null : (
             <Components
               components={[]}
               onComponentSave={this.onComponentSave}
